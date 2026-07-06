@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide météo — Comprendre les indices et prévisions | MétéoLigne</title>
+<meta name="description" content="Guide complet pour comprendre les prévisions météo : température ressentie, indice UV, échelle de Beaufort, pression atmosphérique, humidité, précipitations, visibilité et qualité de l'air.">
+<link rel="canonical" href="./guide.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230B1E3D'/%3E%3Ccircle cx='11' cy='10' r='4.2' fill='%23F5A445'/%3E%3Cpath d='M8 16h8a3 3 0 1 0-.6-5.9A4.4 4.4 0 0 0 7 11.7' fill='none' stroke='%234FB4E8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="top-strip" id="consent-bar">
+  Ce site utilise des cookies pour la mesure d'audience et l'affichage de publicités.
+  <a href="confidentialite.html">En savoir plus</a> ·
+  <button data-consent-accept class="btn btn-ghost" style="padding:3px 10px;font-size:11.5px;margin-left:8px;">J'ai compris</button>
+</div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> MétéoLigne</a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="qualite-air.html">Qualité de l'air</a>
+      <a href="villes.html">Comparateur de villes</a>
+      <a href="guide.html" aria-current="page">Guide météo</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg><use href="assets/img/icons.svg#icon-menu"></use></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero hero-compact">
+  <svg class="wind-lines" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-50 60 C 250 10, 450 110, 1250 40"/>
+    <path d="M-50 160 C 300 110, 500 210, 1250 150"/>
+    <path d="M-50 260 C 300 300, 600 230, 1250 280"/>
+  </svg>
+  <div class="container hero-inner">
+    <p class="eyebrow" style="color:#B9C6E6;">Ressource</p>
+    <h1 style="color:#fff;font-size:28px;margin-bottom:8px;">Guide pour comprendre la météo</h1>
+    <p style="color:#CBD6EE;font-size:14.5px;max-width:580px;">Chaque indicateur affiché sur MétéoLigne expliqué simplement : ce qu'il mesure, comment le lire, et pourquoi il compte.</p>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+    <section class="section article">
+
+      <nav class="toc" aria-label="Sommaire">
+        <h2>Sommaire</h2>
+        <ol>
+          <li><a href="#previsions">Comment lire une prévision météo</a></li>
+          <li><a href="#ressenti">La température ressentie</a></li>
+          <li><a href="#uv">L'indice UV et la protection solaire</a></li>
+          <li><a href="#vent">L'échelle de Beaufort et la force du vent</a></li>
+          <li><a href="#pression">La pression atmosphérique</a></li>
+          <li><a href="#humidite">L'humidité relative</a></li>
+          <li><a href="#precipitation">La probabilité de précipitation</a></li>
+          <li><a href="#visibilite">La visibilité</a></li>
+          <li><a href="#air">La qualité de l'air, en bref</a></li>
+          <li><a href="#faq">Questions fréquentes</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="previsions">Comment lire une prévision météo</h2>
+      <p>Une prévision météo repose sur des modèles numériques qui simulent l'évolution de l'atmosphère à partir de milliers de mesures (satellites, stations au sol, ballons-sondes, radars). Plus l'échéance est proche, plus la prévision est fiable : à 24 heures, la marge d'erreur sur la température est généralement faible, tandis qu'à 7 jours elle donne surtout une tendance générale plutôt qu'un chiffre exact.</p>
+      <p>Sur MétéoLigne, chaque prévision combine plusieurs échelles de temps : les <b>prévisions horaires</b> détaillent l'évolution heure par heure sur 24 heures, tandis que les <b>prévisions à 7 jours</b> donnent une vision d'ensemble avec les températures minimales et maximales de chaque journée.</p>
+
+      <h2 id="ressenti">La température ressentie</h2>
+      <p>La température ressentie (ou « température apparente ») ne mesure pas l'air lui-même, mais l'effet combiné de la température, du vent et de l'humidité sur le corps humain. Par vent fort et froid, elle chute sous l'effet du refroidissement éolien ; par forte chaleur et humidité élevée, elle grimpe car la transpiration s'évapore moins efficacement.</p>
+      <div class="callout">Une température de 5 °C avec un vent de 30 km/h peut être ressentie comme s'il faisait 0 °C ou moins : c'est pourquoi la température ressentie est souvent plus utile que la température réelle pour s'habiller.</div>
+
+      <h2 id="uv">L'indice UV et la protection solaire</h2>
+      <p>L'indice UV mesure l'intensité du rayonnement ultraviolet solaire au sol, sur une échelle ouverte qui dépasse rarement 11 en France métropolitaine. Il augmente avec la hauteur du soleil (donc autour de midi), l'altitude, et diminue par temps couvert — sans toutefois jamais tomber à zéro sous des nuages fins.</p>
+      <div class="table-wrap">
+        <table class="data-table scale-table">
+          <thead><tr><th>Indice</th><th>Niveau</th><th>Précaution recommandée</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0 – 2</td><td>Faible</td><td>Aucune protection particulière nécessaire</td></tr>
+            <tr><td class="num">3 – 5</td><td>Modéré</td><td>Chapeau et lunettes de soleil conseillés en extérieur prolongé</td></tr>
+            <tr><td class="num">6 – 7</td><td>Élevé</td><td>Crème solaire et ombre recherchée aux heures chaudes</td></tr>
+            <tr><td class="num">8 – 10</td><td>Très élevé</td><td>Protection renforcée, éviter l'exposition entre 12h et 16h</td></tr>
+            <tr><td class="num">11+</td><td>Extrême</td><td>Éviter autant que possible l'exposition directe</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="vent">L'échelle de Beaufort et la force du vent</h2>
+      <p>Créée au début du XIXe siècle par l'amiral britannique Francis Beaufort, cette échelle relie la vitesse du vent à ses effets observables, à l'origine sur la mer et la végétation. Elle reste une référence intuitive pour interpréter une vitesse de vent en kilomètres par heure.</p>
+      <div class="table-wrap">
+        <table class="data-table scale-table">
+          <thead><tr><th>Force</th><th>Vitesse (km/h)</th><th>Appellation</th><th>Effets observables</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0</td><td class="num">&lt; 1</td><td>Calme</td><td>La fumée monte verticalement</td></tr>
+            <tr><td class="num">3</td><td class="num">12 – 19</td><td>Petite brise</td><td>Les feuilles et petites branches bougent</td></tr>
+            <tr><td class="num">5</td><td class="num">29 – 38</td><td>Bonne brise</td><td>Les petits arbres balancent, vaguelettes sur l'eau</td></tr>
+            <tr><td class="num">7</td><td class="num">50 – 61</td><td>Vent frais / grand vent frais</td><td>Les grands arbres bougent, marche difficile contre le vent</td></tr>
+            <tr><td class="num">9</td><td class="num">75 – 88</td><td>Fort coup de vent</td><td>Dégâts possibles sur bâtiments (cheminées, tuiles)</td></tr>
+            <tr><td class="num">12</td><td class="num">≥ 118</td><td>Ouragan</td><td>Dégâts très importants et généralisés</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="pression">La pression atmosphérique</h2>
+      <p>La pression atmosphérique, exprimée en hectopascals (hPa), reflète le poids de l'air au-dessus d'un point donné. Une pression élevée (au-delà de 1020 hPa) est généralement associée à un temps stable et dégagé (anticyclone), tandis qu'une pression basse (sous 1000 hPa) signale souvent l'approche d'une perturbation pluvieuse ou venteuse (dépression).</p>
+      <p>Ce n'est pas seulement la valeur absolue qui compte, mais aussi sa <b>tendance</b> : une baisse rapide sur quelques heures annonce souvent une dégradation imminente, tandis qu'une hausse marque un retour au calme.</p>
+
+      <h2 id="humidite">L'humidité relative</h2>
+      <p>L'humidité relative indique le pourcentage de vapeur d'eau contenu dans l'air par rapport au maximum que l'air peut retenir à cette température. Une valeur proche de 100 % signale un air proche de la saturation (brouillard, rosée, pluie), tandis qu'une valeur basse (moins de 30 %) correspond à un air sec, plus fréquent l'après-midi ou en climat continental.</p>
+
+      <h2 id="precipitation">La probabilité de précipitation</h2>
+      <p>Ce pourcentage n'indique pas « combien il va pleuvoir », mais la probabilité qu'une quantité mesurable de pluie tombe à un endroit donné pendant la période considérée. Une probabilité de 30 % signifie que, dans des conditions atmosphériques comparables, il pleut environ 3 fois sur 10 à cet endroit précis — il peut donc très bien ne pas pleuvoir chez vous alors qu'il pleut à quelques kilomètres.</p>
+
+      <h2 id="visibilite">La visibilité</h2>
+      <p>La visibilité correspond à la distance maximale à laquelle un objet reste distinctement observable. Elle se réduit fortement par brouillard, brume, fortes chutes de neige ou pluie intense. Une visibilité inférieure à 1 km impose une prudence particulière sur la route.</p>
+
+      <h2 id="air">La qualité de l'air, en bref</h2>
+      <p>L'indice européen de qualité de l'air synthétise la concentration de plusieurs polluants (particules fines, ozone, dioxyde d'azote…) en une échelle unique de 0 à 100+, du niveau « Bon » au niveau « Extrêmement mauvais ». Retrouvez le détail complet, polluant par polluant, sur notre <a href="qualite-air.html">page dédiée à la qualité de l'air</a>.</p>
+
+      <h2 id="faq">Questions fréquentes</h2>
+      <h3>Pourquoi les prévisions changent-elles parfois d'un jour à l'autre ?</h3>
+      <p>Les modèles météo sont recalculés plusieurs fois par jour à partir de nouvelles observations. Plus l'échéance visée est lointaine, plus la prévision est susceptible d'évoluer entre deux mises à jour.</p>
+      <h3>Quelle est la fiabilité des prévisions à 7 jours ?</h3>
+      <p>Elle reste utile pour dégager une tendance (plus chaud, plus pluvieux…) mais les valeurs précises de température ou d'heure de précipitation deviennent moins certaines au-delà de 3 à 4 jours.</p>
+      <h3>D'où proviennent les données affichées sur MétéoLigne ?</h3>
+      <p>L'ensemble des données météo et de qualité de l'air provient de l'API gratuite <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>, qui agrège plusieurs modèles météorologiques publics (dont ceux de Météo-France, du NOAA et du service européen Copernicus).</p>
+      <h3>Pourquoi la météo diffère-t-elle d'un site à l'autre ?</h3>
+      <p>Chaque service météo peut s'appuyer sur un modèle différent, une résolution géographique différente, ou une heure de mise à jour différente. Ces écarts sont normaux, en particulier pour la pluie à courte échéance.</p>
+
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" style="margin-bottom:12px;"><span class="brand-dot"></span> MétéoLigne</a>
+      <p>Prévisions météo claires et complètes, basées sur des données publiques ouvertes.</p>
+    </div>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="qualite-air.html">Qualité de l'air</a></li>
+      <li><a href="villes.html">Comparateur de villes</a></li>
+      <li><a href="guide.html">Guide météo</a></li>
+    </ul></div>
+    <div><h4>À propos</h4><ul>
+      <li><a href="a-propos.html">Le projet</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="confidentialite.html">Confidentialité</a></li>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+    </ul></div>
+    <div><h4>Sources des données</h4><ul>
+      <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a></li>
+    </ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> MétéoLigne. Données à titre informatif, sans garantie d'exactitude.</span>
+  </div>
+</footer>
+
+<script src="assets/js/utils.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

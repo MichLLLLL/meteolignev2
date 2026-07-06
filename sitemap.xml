@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/index.html</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/qualite-air.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/villes.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/a-propos.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/contact.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/confidentialite.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://votre-domaine-ou-username.github.io/meteo-site/mentions-legales.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+</urlset>

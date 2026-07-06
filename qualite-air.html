@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qualité de l'air en direct — Indice, polluants et conseils santé | MétéoLigne</title>
+<meta name="description" content="Suivez la qualité de l'air en temps réel : indice européen (CAMS), particules fines PM2.5 et PM10, ozone, dioxyde d'azote, et conseils santé adaptés.">
+<link rel="canonical" href="./qualite-air.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230B1E3D'/%3E%3Ccircle cx='11' cy='10' r='4.2' fill='%23F5A445'/%3E%3Cpath d='M8 16h8a3 3 0 1 0-.6-5.9A4.4 4.4 0 0 0 7 11.7' fill='none' stroke='%234FB4E8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="top-strip" id="consent-bar">
+  Ce site utilise des cookies pour la mesure d'audience et l'affichage de publicités.
+  <a href="confidentialite.html">En savoir plus</a> ·
+  <button data-consent-accept class="btn btn-ghost" style="padding:3px 10px;font-size:11.5px;margin-left:8px;">J'ai compris</button>
+</div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> MétéoLigne</a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="qualite-air.html" aria-current="page">Qualité de l'air</a>
+      <a href="villes.html">Comparateur de villes</a>
+      <a href="guide.html">Guide météo</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg><use href="assets/img/icons.svg#icon-menu"></use></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero hero-compact">
+  <svg class="wind-lines" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-50 60 C 250 10, 450 110, 1250 40"/>
+    <path d="M-50 160 C 300 110, 500 210, 1250 150"/>
+    <path d="M-50 260 C 300 300, 600 230, 1250 280"/>
+  </svg>
+  <div class="container hero-inner">
+    <p class="eyebrow" style="color:#B9C6E6;">Santé environnementale</p>
+    <h1 style="color:#fff;font-size:28px;margin-bottom:14px;">Qualité de l'air</h1>
+    <div class="search-row">
+      <label for="citySearch" class="visually-hidden">Rechercher une ville</label>
+      <input type="text" id="citySearch" placeholder="Rechercher une ville…" autocomplete="off">
+      <button class="btn btn-primary" id="btnSearch" aria-label="Rechercher"><svg><use href="assets/img/icons.svg#icon-search"></use></svg></button>
+      <button class="btn btn-ghost" id="btnGeoloc" title="Utiliser ma position"><svg><use href="assets/img/icons.svg#icon-pin"></use></svg></button>
+      <div class="autocomplete-list" id="autocompleteList" hidden></div>
+    </div>
+    <p id="placeLabel" style="color:#CBD6EE;font-size:14px;margin-top:14px;">Chargement…</p>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+
+    <section class="section grid grid-2" id="aqiMainSection" aria-live="polite">
+      <div class="card" style="text-align:center;">
+        <div class="metric-head" style="justify-content:center;">Indice de qualité de l'air européen (CAMS)</div>
+        <div id="aqiBigDial" style="margin:20px auto;"></div>
+        <div id="aqiBigBadge"></div>
+        <p id="aqiAdviceText" class="metric-note" style="max-width:360px;margin:14px auto 0;font-size:14px;"></p>
+      </div>
+      <div class="card">
+        <div class="metric-head">Répartition des polluants</div>
+        <div id="pollutantList" style="margin-top:10px;"></div>
+      </div>
+    </section>
+
+    <div class="ad-slot container" style="margin:0 auto 8px;max-width:1140px;">Emplacement publicitaire</div>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">Tendance</p><h2>Évolution sur 24 heures</h2></div>
+        <p class="section-sub">Indice européen prévu, heure par heure</p>
+      </div>
+      <div class="card"><canvas id="aqiChart" height="90" role="img" aria-label="Graphique de l'évolution de l'indice de qualité de l'air sur 24 heures"></canvas></div>
+    </section>
+
+    <section class="section article">
+      <div class="section-head"><h2>Comprendre les polluants mesurés</h2></div>
+      <h3>PM2.5 et PM10 — particules fines</h3>
+      <p>Les particules PM2.5 (moins de 2,5 microns) et PM10 (moins de 10 microns) proviennent notamment du trafic routier, du chauffage au bois et de l'industrie. Suffisamment petites pour pénétrer profondément dans les voies respiratoires, elles sont associées à des risques cardiovasculaires et respiratoires en cas d'exposition prolongée.</p>
+      <h3>Ozone (O₃)</h3>
+      <p>L'ozone troposphérique se forme sous l'effet du rayonnement solaire sur d'autres polluants. Ses concentrations augmentent généralement lors des journées chaudes et ensoleillées, et peuvent irriter les voies respiratoires et les yeux.</p>
+      <h3>Dioxyde d'azote (NO₂)</h3>
+      <p>Émis principalement par les moteurs diesel et les installations de combustion, le NO₂ est un marqueur classique de la pollution liée au trafic urbain, notamment en bordure d'axes routiers.</p>
+      <h3>Dioxyde de soufre (SO₂) et monoxyde de carbone (CO)</h3>
+      <p>Le SO₂ provient surtout de la combustion de matières fossiles soufrées, tandis que le CO résulte d'une combustion incomplète (véhicules, chauffage). Tous deux sont surveillés en continu par les réseaux de mesure européens.</p>
+      <div class="callout" style="margin-top:20px;">
+        Ces données proviennent du modèle CAMS (Copernicus Atmosphere Monitoring Service), diffusé gratuitement par
+        <a href="https://open-meteo.com/en/docs/air-quality-api" target="_blank" rel="noopener">Open-Meteo</a>. Elles constituent une estimation modélisée et non une mesure officielle réglementaire.
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" style="margin-bottom:12px;"><span class="brand-dot"></span> MétéoLigne</a>
+      <p>Prévisions météo claires et complètes, basées sur des données publiques ouvertes.</p>
+    </div>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="qualite-air.html">Qualité de l'air</a></li>
+      <li><a href="villes.html">Comparateur de villes</a></li>
+      <li><a href="guide.html">Guide météo</a></li>
+    </ul></div>
+    <div><h4>À propos</h4><ul>
+      <li><a href="a-propos.html">Le projet</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="confidentialite.html">Confidentialité</a></li>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+    </ul></div>
+    <div><h4>Sources des données</h4><ul>
+      <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a></li>
+      <li><a href="https://atmosphere.copernicus.eu/" target="_blank" rel="noopener">Copernicus CAMS</a></li>
+    </ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> MétéoLigne. Données à titre informatif, sans garantie d'exactitude.</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/air.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

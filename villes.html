@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparateur météo des grandes villes de France | MétéoLigne</title>
+<meta name="description" content="Comparez en direct la météo de 12 grandes villes françaises : température, ressenti, vent, humidité et précipitations, classées et triables.">
+<link rel="canonical" href="./villes.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230B1E3D'/%3E%3Ccircle cx='11' cy='10' r='4.2' fill='%23F5A445'/%3E%3Cpath d='M8 16h8a3 3 0 1 0-.6-5.9A4.4 4.4 0 0 0 7 11.7' fill='none' stroke='%234FB4E8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="top-strip" id="consent-bar">
+  Ce site utilise des cookies pour la mesure d'audience et l'affichage de publicités.
+  <a href="confidentialite.html">En savoir plus</a> ·
+  <button data-consent-accept class="btn btn-ghost" style="padding:3px 10px;font-size:11.5px;margin-left:8px;">J'ai compris</button>
+</div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> MétéoLigne</a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="qualite-air.html">Qualité de l'air</a>
+      <a href="villes.html" aria-current="page">Comparateur de villes</a>
+      <a href="guide.html">Guide météo</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg><use href="assets/img/icons.svg#icon-menu"></use></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero hero-compact">
+  <svg class="wind-lines" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-50 60 C 250 10, 450 110, 1250 40"/>
+    <path d="M-50 160 C 300 110, 500 210, 1250 150"/>
+    <path d="M-50 260 C 300 300, 600 230, 1250 280"/>
+  </svg>
+  <div class="container hero-inner">
+    <p class="eyebrow" style="color:#B9C6E6;">Vue d'ensemble</p>
+    <h1 style="color:#fff;font-size:28px;margin-bottom:6px;">Météo des grandes villes de France</h1>
+    <p style="color:#CBD6EE;font-size:14.5px;max-width:560px;">Comparez en un coup d'œil les conditions actuelles dans 12 villes, mises à jour à chaque visite.</p>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+
+    <section class="section" id="highlightsSection">
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);" id="highlightsGrid"></div>
+    </section>
+
+    <div class="ad-slot container" style="margin:0 auto 8px;max-width:1140px;">Emplacement publicitaire</div>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">Classement</p><h2>Tableau comparatif</h2></div>
+        <p class="section-sub">Cliquez sur une colonne pour trier</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="citiesTable">
+          <thead>
+            <tr>
+              <th data-key="name">Ville <span class="arrow"></span></th>
+              <th data-key="cond">Conditions <span class="arrow"></span></th>
+              <th data-key="temp">Température <span class="arrow"></span></th>
+              <th data-key="feels">Ressenti <span class="arrow"></span></th>
+              <th data-key="wind">Vent <span class="arrow"></span></th>
+              <th data-key="humidity">Humidité <span class="arrow"></span></th>
+              <th data-key="precip">Précip. (1h) <span class="arrow"></span></th>
+            </tr>
+          </thead>
+          <tbody id="citiesBody">
+            <tr><td colspan="7" class="state-msg">Chargement des données pour les 12 villes…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="metric-note" style="margin-top:10px;">Données horaires Open-Meteo, actualisées à chaque chargement de page.</p>
+    </section>
+
+    <section class="section article">
+      <div class="section-head"><h2>Pourquoi comparer la météo entre villes ?</h2></div>
+      <p>La France métropolitaine s'étend sur plusieurs zones climatiques : climat océanique à l'ouest (Nantes, Rennes, Bordeaux), climat semi-continental à l'est (Strasbourg, Reims), climat méditerranéen au sud-est (Nice, Marseille, Montpellier) et climats de transition ailleurs (Paris, Lyon, Toulouse, Lille). Ces différences expliquent des écarts de température, de vent et de pluviométrie parfois marqués un même jour.</p>
+      <p>Ce comparateur vous permet de visualiser ces écarts en direct, utile pour préparer un déplacement, comparer une future destination de vacances, ou simplement satisfaire votre curiosité météorologique.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" style="margin-bottom:12px;"><span class="brand-dot"></span> MétéoLigne</a>
+      <p>Prévisions météo claires et complètes, basées sur des données publiques ouvertes.</p>
+    </div>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="qualite-air.html">Qualité de l'air</a></li>
+      <li><a href="villes.html">Comparateur de villes</a></li>
+      <li><a href="guide.html">Guide météo</a></li>
+    </ul></div>
+    <div><h4>À propos</h4><ul>
+      <li><a href="a-propos.html">Le projet</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="confidentialite.html">Confidentialité</a></li>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+    </ul></div>
+    <div><h4>Sources des données</h4><ul>
+      <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a></li>
+    </ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> MétéoLigne. Données à titre informatif, sans garantie d'exactitude.</span>
+  </div>
+</footer>
+
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/villes.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MétéoLigne — Prévisions météo détaillées, qualité de l'air et cartes</title>
+<meta name="description" content="Météo actuelle, prévisions horaires et sur 7 jours, température ressentie, vent, humidité, pression, indice UV, visibilité et qualité de l'air pour n'importe quelle ville, gratuitement.">
+<link rel="canonical" href="./index.html">
+<meta property="og:title" content="MétéoLigne — Prévisions météo détaillées">
+<meta property="og:description" content="Météo complète, en temps réel : prévisions, indices UV, qualité de l'air, graphiques et cartes.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230B1E3D'/%3E%3Ccircle cx='11' cy='10' r='4.2' fill='%23F5A445'/%3E%3Cpath d='M8 16h8a3 3 0 1 0-.6-5.9A4.4 4.4 0 0 0 7 11.7' fill='none' stroke='%234FB4E8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="top-strip" id="consent-bar">
+  Ce site utilise des cookies pour la mesure d'audience et l'affichage de publicités.
+  <a href="confidentialite.html">En savoir plus</a> ·
+  <button data-consent-accept class="btn btn-ghost" style="padding:3px 10px;font-size:11.5px;margin-left:8px;">J'ai compris</button>
+</div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> MétéoLigne</a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="qualite-air.html">Qualité de l'air</a>
+      <a href="villes.html">Comparateur de villes</a>
+      <a href="guide.html">Guide météo</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg><use href="assets/img/icons.svg#icon-menu"></use></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="wind-lines" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-50 60 C 250 10, 450 110, 1250 40"/>
+    <path d="M-50 140 C 300 90, 500 190, 1250 130"/>
+    <path d="M-50 220 C 250 260, 550 170, 1250 230"/>
+    <path d="M-50 280 C 300 320, 600 250, 1250 300"/>
+  </svg>
+  <div class="container hero-inner">
+    <div class="search-row">
+      <label for="citySearch" class="visually-hidden">Rechercher une ville</label>
+      <input type="text" id="citySearch" placeholder="Rechercher une ville (ex. Lyon, Dakar, Montréal…)" autocomplete="off">
+      <button class="btn btn-primary" id="btnSearch" aria-label="Rechercher">
+        <svg><use href="assets/img/icons.svg#icon-search"></use></svg>
+      </button>
+      <button class="btn btn-ghost" id="btnGeoloc" title="Utiliser ma position">
+        <svg><use href="assets/img/icons.svg#icon-pin"></use></svg>
+      </button>
+      <div class="autocomplete-list" id="autocompleteList" hidden></div>
+    </div>
+
+    <div id="heroContent" aria-live="polite">
+      <div class="state-msg">Recherche de votre position pour afficher la météo locale…</div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+
+    <section class="section" id="metricsSection" hidden>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Instruments</p>
+          <h2>Conditions détaillées</h2>
+        </div>
+        <p class="section-sub">Mesures actuelles au lieu sélectionné</p>
+      </div>
+      <div class="grid grid-metrics" id="metricsGrid"></div>
+    </section>
+
+    <div class="ad-slot container" style="margin:0 auto 8px;max-width:1140px;">Emplacement publicitaire</div>
+
+    <section class="section" id="hourlySection" hidden>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Court terme</p>
+          <h2>Prévisions horaires</h2>
+        </div>
+        <p class="section-sub">Les prochaines 24 heures</p>
+      </div>
+      <div class="hscroll" id="hourlyStrip"></div>
+      <div class="card" style="margin-top:16px;">
+        <canvas id="tempChart" height="90" aria-label="Graphique de l'évolution de la température sur 48 heures" role="img"></canvas>
+      </div>
+    </section>
+
+    <section class="section grid grid-2" id="dailyAqiSection" hidden>
+      <div class="card">
+        <div class="section-head" style="margin-bottom:6px;">
+          <h2 style="font-size:18px;">Prévisions sur 7 jours</h2>
+        </div>
+        <div id="dailyList"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-head" style="margin-bottom:6px;">
+          <h2 style="font-size:18px;">Qualité de l'air</h2>
+        </div>
+        <div id="aqiSummary"></div>
+        <p style="margin-top:14px;">
+          <a href="qualite-air.html">Voir le détail des polluants et les conseils santé →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="mapSection" hidden>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Repère</p>
+          <h2>Localisation</h2>
+        </div>
+      </div>
+      <div class="grid" style="grid-template-columns:1.4fr 1fr;">
+        <div class="map-box" id="mapBox"></div>
+        <div class="card" id="sunCard"></div>
+      </div>
+    </section>
+
+    <div class="ad-slot container" style="margin:24px auto;max-width:1140px;">Emplacement publicitaire</div>
+
+    <section class="section">
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+        <a class="card" href="guide.html" style="text-decoration:none;">
+          <div class="metric-head"><svg><use href="assets/img/icons.svg#icon-info"></use></svg> GUIDE</div>
+          <h3 style="font-size:16px;margin-top:8px;">Comprendre les indices météo</h3>
+          <p style="font-size:13.5px;color:var(--slate);margin:0;">Indice UV, échelle de Beaufort, pression, qualité de l'air : tout expliqué simplement.</p>
+        </a>
+        <a class="card" href="villes.html" style="text-decoration:none;">
+          <div class="metric-head"><svg><use href="assets/img/icons.svg#icon-gauge"></use></svg> COMPARATEUR</div>
+          <h3 style="font-size:16px;margin-top:8px;">Météo des grandes villes</h3>
+          <p style="font-size:13.5px;color:var(--slate);margin:0;">Comparez en un tableau la météo actuelle de 12 villes françaises.</p>
+        </a>
+        <a class="card" href="qualite-air.html" style="text-decoration:none;">
+          <div class="metric-head"><svg><use href="assets/img/icons.svg#icon-lungs"></use></svg> SANTÉ</div>
+          <h3 style="font-size:16px;margin-top:8px;">Qualité de l'air détaillée</h3>
+          <p style="font-size:13.5px;color:var(--slate);margin:0;">PM2.5, ozone, NO₂ : suivez les polluants et leur impact sur la santé.</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" style="margin-bottom:12px;"><span class="brand-dot"></span> MétéoLigne</a>
+      <p>Prévisions météo claires et complètes, basées sur des données publiques ouvertes. Aucune inscription, aucune donnée personnelle requise.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="qualite-air.html">Qualité de l'air</a></li>
+        <li><a href="villes.html">Comparateur de villes</a></li>
+        <li><a href="guide.html">Guide météo</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>À propos</h4>
+      <ul>
+        <li><a href="a-propos.html">Le projet</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="confidentialite.html">Confidentialité</a></li>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources des données</h4>
+      <ul>
+        <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a></li>
+        <li><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© Contributeurs OpenStreetMap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> MétéoLigne. Données à titre informatif, sans garantie d'exactitude.</span>
+    <span>Fait avec soin pour la lisibilité des données météo.</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/home.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

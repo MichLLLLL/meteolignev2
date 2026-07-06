@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À propos de MétéoLigne</title>
+<meta name="description" content="MétéoLigne est un site météo indépendant, gratuit et sans inscription, construit sur des données ouvertes. Découvrez le projet, ses sources et ses limites.">
+<link rel="canonical" href="./a-propos.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230B1E3D'/%3E%3Ccircle cx='11' cy='10' r='4.2' fill='%23F5A445'/%3E%3Cpath d='M8 16h8a3 3 0 1 0-.6-5.9A4.4 4.4 0 0 0 7 11.7' fill='none' stroke='%234FB4E8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="top-strip" id="consent-bar">
+  Ce site utilise des cookies pour la mesure d'audience et l'affichage de publicités.
+  <a href="confidentialite.html">En savoir plus</a> ·
+  <button data-consent-accept class="btn btn-ghost" style="padding:3px 10px;font-size:11.5px;margin-left:8px;">J'ai compris</button>
+</div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> MétéoLigne</a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="qualite-air.html">Qualité de l'air</a>
+      <a href="villes.html">Comparateur de villes</a>
+      <a href="guide.html">Guide météo</a>
+      <a href="a-propos.html" aria-current="page">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg><use href="assets/img/icons.svg#icon-menu"></use></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero hero-compact">
+  <svg class="wind-lines" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-50 60 C 250 10, 450 110, 1250 40"/>
+    <path d="M-50 160 C 300 110, 500 210, 1250 150"/>
+  </svg>
+  <div class="container hero-inner">
+    <p class="eyebrow" style="color:#B9C6E6;">Le projet</p>
+    <h1 style="color:#fff;font-size:28px;">À propos de MétéoLigne</h1>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+    <section class="section article">
+
+      <h2>Notre mission</h2>
+      <p>MétéoLigne a été créé pour offrir un accès simple, rapide et gratuit à une météo complète : température, ressenti, vent, humidité, pression, indice UV, visibilité et qualité de l'air, présentés de façon claire, sans surcharge inutile ni obligation de créer un compte.</p>
+
+      <h2>Comment fonctionne le site</h2>
+      <p>MétéoLigne est un site entièrement statique : aucune base de données ni serveur applicatif ne conserve vos recherches. Toutes les données météo affichées sont interrogées en direct, depuis votre navigateur, auprès de fournisseurs de données ouvertes :</p>
+      <ul>
+        <li><b>Prévisions météo et qualité de l'air :</b> <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>, qui agrège des modèles publics (Météo-France AROME/ARPEGE, NOAA GFS, ECMWF, Copernicus CAMS pour la pollution atmosphérique).</li>
+        <li><b>Recherche de villes :</b> le service de géocodage d'Open-Meteo.</li>
+        <li><b>Cartographie :</b> les fonds de carte <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, affichés via la bibliothèque Leaflet.</li>
+      </ul>
+      <p>La seule information conservée localement (dans votre navigateur, via le stockage local) est le nom de la dernière ville consultée, afin de vous l'afficher automatiquement à votre prochaine visite. Cette information n'est jamais transmise à MétéoLigne.</p>
+
+      <h2>Limites et avertissement</h2>
+      <div class="callout warn">
+        Les données affichées sont des estimations issues de modèles numériques et peuvent s'écarter de la réalité, en particulier au-delà de 3 à 4 jours ou dans les zones de relief marqué. MétéoLigne ne remplace pas les bulletins de vigilance officiels de votre service météorologique national en cas de phénomène dangereux.
+      </div>
+
+      <h2>Une question, une suggestion ?</h2>
+      <p>N'hésitez pas à nous <a href="contact.html">contacter</a> : retours d'utilisation, signalement d'un problème d'affichage ou simple suggestion sont toujours les bienvenus.</p>
+
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" style="margin-bottom:12px;"><span class="brand-dot"></span> MétéoLigne</a>
+      <p>Prévisions météo claires et complètes, basées sur des données publiques ouvertes.</p>
+    </div>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="qualite-air.html">Qualité de l'air</a></li>
+      <li><a href="villes.html">Comparateur de villes</a></li>
+      <li><a href="guide.html">Guide météo</a></li>
+    </ul></div>
+    <div><h4>À propos</h4><ul>
+      <li><a href="a-propos.html">Le projet</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="confidentialite.html">Confidentialité</a></li>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+    </ul></div>
+    <div><h4>Sources des données</h4><ul>
+      <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a></li>
+    </ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> MétéoLigne. Données à titre informatif, sans garantie d'exactitude.</span>
+  </div>
+</footer>
+
+<script src="assets/js/utils.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

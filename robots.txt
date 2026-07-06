@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://votre-domaine-ou-username.github.io/meteo-site/sitemap.xml

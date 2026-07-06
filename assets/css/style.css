@@ -1,0 +1,408 @@
+/* ==========================================================================
+   MétéoLigne — feuille de style principale
+   Thème : "carte du ciel" — bleu nuit / cyan / ambre, esprit instrument
+   ========================================================================== */
+
+:root{
+  /* --- Couleurs (tokens) --- */
+  --night:      #0B1E3D;
+  --indigo:     #1E3564;
+  --indigo-2:   #26417A;
+  --cyan:       #4FB4E8;
+  --cyan-dim:   #4FB4E822;
+  --amber:      #F5A445;
+  --coral:      #E8615A;
+  --teal:       #3FC79A;
+  --mist:       #F3F6FA;
+  --slate:      #64708A;
+  --slate-2:    #8C97AE;
+  --ink:        #14213D;
+  --white:      #FFFFFF;
+  --line:       #E3E8F0;
+
+  /* --- Typo --- */
+  --font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* --- Layout --- */
+  --maxw: 1180px;
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-l: 26px;
+  --shadow-card: 0 1px 2px rgba(20,33,61,.04), 0 8px 24px -8px rgba(20,33,61,.10);
+  --shadow-card-hover: 0 4px 10px rgba(20,33,61,.06), 0 20px 40px -12px rgba(20,33,61,.16);
+
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------------------
+   Reset & base
+   -------------------------------------------------------------------------- */
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--mist);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:var(--indigo-2); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+ul{ margin:0; padding:0; }
+button{ font-family:inherit; cursor:pointer; }
+h1,h2,h3,h4{ font-family:var(--font-display); margin:0 0 .5em; line-height:1.15; letter-spacing:-0.01em; color:var(--night); }
+p{ margin:0 0 1em; }
+.mono{ font-family:var(--font-mono); }
+
+:focus-visible{ outline:2.5px solid var(--cyan); outline-offset:2px; border-radius:4px; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+.container{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+.visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+/* --------------------------------------------------------------------------
+   Bandeau d'attribution / cookies (haut de page, discret)
+   -------------------------------------------------------------------------- */
+.top-strip{
+  background:var(--night); color:var(--slate-2); font-size:12.5px;
+  text-align:center; padding:6px 14px;
+}
+.top-strip a{ color:var(--cyan); }
+
+/* --------------------------------------------------------------------------
+   En-tête / navigation
+   -------------------------------------------------------------------------- */
+.site-header{
+  position:sticky; top:0; z-index:40;
+  background:rgba(11,30,61,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-inner{
+  display:flex; align-items:center; gap:24px;
+  padding:14px 20px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-display); font-weight:600; font-size:19px;
+  color:var(--white); white-space:nowrap;
+}
+.brand .brand-dot{
+  width:10px; height:10px; border-radius:50%;
+  background:var(--cyan); box-shadow:0 0 0 4px var(--cyan-dim);
+}
+.main-nav{ display:flex; gap:4px; flex:1; }
+.main-nav a{
+  color:#CBD6EE; font-size:14.5px; font-weight:500;
+  padding:8px 12px; border-radius:8px; transition:background .15s, color .15s;
+}
+.main-nav a:hover, .main-nav a:focus-visible{ background:rgba(255,255,255,.08); color:var(--white); text-decoration:none; }
+.main-nav a[aria-current="page"]{ color:var(--white); background:rgba(79,180,232,.16); }
+
+.nav-toggle{
+  display:none; background:none; border:0; color:var(--white); padding:8px;
+}
+.nav-toggle svg{ width:22px; height:22px; }
+
+@media (max-width:880px){
+  .main-nav{
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--night); flex-direction:column; padding:10px 16px 18px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    display:none;
+  }
+  .main-nav.open{ display:flex; }
+  .main-nav a{ padding:11px 12px; }
+  .nav-toggle{ display:inline-flex; margin-left:auto; }
+}
+
+/* --------------------------------------------------------------------------
+   Hero — "carte du ciel" avec lignes de vent animées (élément signature)
+   -------------------------------------------------------------------------- */
+.hero{
+  position:relative; overflow:hidden; isolation:isolate;
+  background:linear-gradient(160deg,var(--night) 0%, var(--indigo) 55%, var(--indigo-2) 100%);
+  color:var(--white);
+  padding:38px 0 46px;
+}
+.hero.hero-compact{ padding:26px 0 30px; }
+.wind-lines{ position:absolute; inset:0; z-index:0; opacity:.5; }
+.wind-lines path{
+  fill:none; stroke:rgba(255,255,255,.35); stroke-width:1;
+  stroke-dasharray:6 10; animation:driftLine 18s linear infinite;
+}
+.wind-lines path:nth-child(2){ animation-duration:24s; stroke:rgba(79,180,232,.4); animation-direction:reverse;}
+.wind-lines path:nth-child(3){ animation-duration:30s; stroke:rgba(245,164,69,.28);}
+.wind-lines path:nth-child(4){ animation-duration:21s; stroke:rgba(255,255,255,.2);}
+@keyframes driftLine{ to{ stroke-dashoffset:400; } }
+
+.hero-inner{ position:relative; z-index:1; }
+
+.search-row{
+  display:flex; gap:10px; margin-bottom:26px; position:relative;
+  max-width:560px;
+}
+.search-row input{
+  flex:1; padding:13px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08); color:var(--white); font-size:15px;
+}
+.search-row input::placeholder{ color:#B9C6E6; }
+.search-row input:focus-visible{ outline:2px solid var(--cyan); background:rgba(255,255,255,.14); }
+.btn{
+  display:inline-flex; align-items:center; gap:8px; justify-content:center;
+  border:0; border-radius:12px; padding:12px 18px; font-weight:600; font-size:14.5px;
+  transition:transform .15s, box-shadow .15s, background .15s;
+}
+.btn:active{ transform:scale(.97); }
+.btn-primary{ background:var(--cyan); color:var(--night); }
+.btn-primary:hover{ box-shadow:0 6px 18px -4px rgba(79,180,232,.6); }
+.btn-ghost{ background:rgba(255,255,255,.1); color:var(--white); border:1px solid rgba(255,255,255,.2); }
+.btn-ghost:hover{ background:rgba(255,255,255,.18); }
+.btn svg{ width:17px; height:17px; }
+
+.autocomplete-list{
+  position:absolute; top:calc(100% + 6px); left:0; width:100%;
+  background:var(--white); border-radius:12px; box-shadow:var(--shadow-card-hover);
+  overflow:hidden; z-index:30; max-height:280px; overflow-y:auto;
+}
+.autocomplete-list button{
+  display:flex; flex-direction:column; width:100%; text-align:left; background:none; border:0;
+  padding:10px 14px; color:var(--ink); border-bottom:1px solid var(--line);
+}
+.autocomplete-list button:hover, .autocomplete-list button:focus-visible{ background:var(--mist); }
+.autocomplete-list small{ color:var(--slate); }
+
+.hero-current{ display:flex; flex-wrap:wrap; gap:36px; align-items:center; }
+.hero-place{ font-size:14px; color:#B9C6E6; display:flex; gap:8px; align-items:center; margin-bottom:6px;}
+.hero-temp-block{ display:flex; align-items:flex-start; gap:18px; }
+.hero-icon{ width:88px; height:88px; flex:none; filter:drop-shadow(0 8px 18px rgba(0,0,0,.25)); }
+.hero-temp{ font-family:var(--font-mono); font-size:76px; font-weight:600; line-height:1; letter-spacing:-2px;}
+.hero-temp sup{ font-size:32px; font-weight:400; top:-.6em; }
+.hero-desc{ font-size:17px; color:#E4EAF7; margin-top:4px; }
+.hero-feels{ font-size:13.5px; color:#B9C6E6; margin-top:2px; }
+
+.hero-mini-stats{ display:flex; gap:22px; flex-wrap:wrap; margin-left:auto; }
+.mini-stat{ text-align:center; min-width:64px; }
+.mini-stat .v{ font-family:var(--font-mono); font-size:19px; font-weight:600; }
+.mini-stat .l{ font-size:11.5px; color:#B9C6E6; text-transform:uppercase; letter-spacing:.05em; margin-top:2px; }
+
+.hero-sun-track{
+  margin-top:26px; padding-top:20px; border-top:1px solid rgba(255,255,255,.14);
+  display:flex; align-items:center; gap:16px; font-size:13px; color:#CBD6EE;
+}
+.sun-bar{ flex:1; height:6px; border-radius:6px; background:rgba(255,255,255,.14); position:relative; }
+.sun-bar-fill{ position:absolute; top:0; left:0; height:100%; border-radius:6px; background:linear-gradient(90deg,var(--amber),var(--cyan)); }
+.sun-bar-dot{ position:absolute; top:50%; width:12px; height:12px; margin-left:-6px; border-radius:50%; background:var(--white); box-shadow:0 0 0 4px rgba(255,255,255,.25); transform:translateY(-50%); }
+
+/* --------------------------------------------------------------------------
+   Sections générales
+   -------------------------------------------------------------------------- */
+main{ display:block; }
+.section{ padding:40px 0; }
+.section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:18px; flex-wrap:wrap;}
+.section-head h2{ font-size:22px; }
+.section-sub{ color:var(--slate); font-size:14px; margin-top:-8px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--indigo-2); margin-bottom:8px;
+}
+.eyebrow::before{ content:""; width:16px; height:2px; background:var(--amber); display:inline-block; }
+
+/* --------------------------------------------------------------------------
+   Cartes / grilles
+   -------------------------------------------------------------------------- */
+.card{
+  background:var(--white); border-radius:var(--radius-m); border:1px solid var(--line);
+  box-shadow:var(--shadow-card); padding:20px; transition:box-shadow .2s, transform .2s;
+}
+.card:hover{ box-shadow:var(--shadow-card-hover); }
+.grid{ display:grid; gap:16px; }
+.grid-metrics{ grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
+.grid-2{ grid-template-columns:2fr 1fr; }
+@media (max-width:900px){ .grid-2{ grid-template-columns:1fr; } }
+
+.metric-card{ display:flex; flex-direction:column; gap:10px; }
+.metric-head{ display:flex; align-items:center; gap:8px; color:var(--slate); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+.metric-head svg{ width:16px; height:16px; color:var(--indigo-2); }
+.metric-value{ font-family:var(--font-mono); font-size:26px; font-weight:600; color:var(--night); }
+.metric-value span{ font-size:14px; color:var(--slate); font-weight:500; margin-left:2px;}
+.metric-note{ font-size:12.5px; color:var(--slate); }
+
+/* Jauges circulaires (cadran instrument) */
+.dial{ position:relative; width:96px; height:96px; margin:0 auto; }
+.dial svg{ width:100%; height:100%; transform:rotate(-90deg); }
+.dial circle.track{ fill:none; stroke:var(--line); stroke-width:8; }
+.dial circle.value{ fill:none; stroke:var(--cyan); stroke-width:8; stroke-linecap:round; transition:stroke-dasharray .6s ease; }
+.dial-label{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-weight:600; font-size:18px; color:var(--night);
+}
+.dial-label small{ font-family:var(--font-body); font-weight:600; font-size:10px; color:var(--slate); text-transform:uppercase; }
+
+/* Boussole vent */
+.compass{ position:relative; width:100px; height:100px; margin:0 auto; }
+.compass svg{ width:100%; height:100%; }
+.compass .needle{ transform-origin:50px 50px; transition:transform .6s ease; }
+
+/* --------------------------------------------------------------------------
+   Prévisions horaires (bandeau défilant)
+   -------------------------------------------------------------------------- */
+.hscroll{ display:flex; gap:10px; overflow-x:auto; padding-bottom:8px; scroll-snap-type:x proximity; }
+.hscroll::-webkit-scrollbar{ height:6px; }
+.hscroll::-webkit-scrollbar-thumb{ background:var(--line); border-radius:6px; }
+.hour-card{
+  scroll-snap-align:start; flex:none; width:84px; text-align:center;
+  background:var(--white); border:1px solid var(--line); border-radius:var(--radius-s);
+  padding:12px 6px;
+}
+.hour-card.is-now{ border-color:var(--cyan); box-shadow:0 0 0 3px var(--cyan-dim); }
+.hour-card .t{ font-size:12px; color:var(--slate); font-weight:600; }
+.hour-card svg.icon{ width:32px; height:32px; margin:8px auto; }
+.hour-card .temp{ font-family:var(--font-mono); font-weight:600; font-size:15px; }
+.hour-card .pop{ font-size:11px; color:var(--cyan); margin-top:4px; font-weight:600; }
+
+/* --------------------------------------------------------------------------
+   Prévisions journalières
+   -------------------------------------------------------------------------- */
+.day-row{
+  display:grid; grid-template-columns:100px 30px 1fr 100px 44px; align-items:center; gap:14px;
+  padding:12px 6px; border-bottom:1px solid var(--line);
+}
+.day-row:last-child{ border-bottom:0; }
+.day-row .dname{ font-weight:600; font-size:14px; }
+.day-row .dname small{ display:block; font-weight:400; color:var(--slate); font-size:12px; }
+.day-row svg.icon{ width:26px; height:26px; }
+.day-bar-track{ position:relative; height:6px; border-radius:6px; background:var(--line); }
+.day-bar-fill{ position:absolute; height:100%; border-radius:6px; background:linear-gradient(90deg,var(--cyan),var(--amber)); }
+.day-minmax{ display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:13.5px; }
+.day-minmax .min{ color:var(--slate); }
+.day-pop{ font-size:12px; color:var(--cyan); font-weight:600; text-align:right; }
+
+/* --------------------------------------------------------------------------
+   Qualité de l'air
+   -------------------------------------------------------------------------- */
+.aqi-badge{
+  display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:20px;
+  font-weight:700; font-size:13px; font-family:var(--font-mono);
+}
+.aqi-1{ background:#E4F8EF; color:#1C8A5C; }
+.aqi-2{ background:#EFF6E1; color:#6E8A1C; }
+.aqi-3{ background:#FFF3D6; color:#9A6B0A; }
+.aqi-4{ background:#FDE3D8; color:#B14A26; }
+.aqi-5{ background:#FBDCDC; color:#B22323; }
+.aqi-6{ background:#EBD9F2; color:#6C239E; }
+
+.pollutant-row{ display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line); font-size:14px;}
+.pollutant-row:last-child{ border-bottom:0; }
+.pollutant-row b{ font-family:var(--font-mono); }
+
+/* --------------------------------------------------------------------------
+   Tableaux (comparateur de villes, etc.)
+   -------------------------------------------------------------------------- */
+.table-wrap{ overflow-x:auto; border-radius:var(--radius-m); border:1px solid var(--line); }
+table.data-table{ width:100%; border-collapse:collapse; background:var(--white); font-size:14px; min-width:640px; }
+table.data-table th, table.data-table td{ padding:12px 14px; text-align:left; border-bottom:1px solid var(--line); }
+table.data-table th{
+  background:var(--mist); font-family:var(--font-display); font-size:12.5px; text-transform:uppercase;
+  letter-spacing:.04em; color:var(--slate); cursor:pointer; white-space:nowrap; user-select:none;
+}
+table.data-table th span.arrow{ opacity:.4; margin-left:4px; }
+table.data-table tbody tr:hover{ background:var(--mist); }
+table.data-table td.num{ font-family:var(--font-mono); }
+
+/* --------------------------------------------------------------------------
+   Contenus éditoriaux (guide, à propos, légal)
+   -------------------------------------------------------------------------- */
+.article{ max-width:760px; }
+.article h2{ font-size:24px; margin-top:2.2em; }
+.article h2:first-of-type{ margin-top:0; }
+.article h3{ font-size:18px; margin-top:1.6em; }
+.article p, .article li{ color:#2B3A5E; font-size:15.5px; }
+.article li{ margin-bottom:.4em; }
+.article ul, .article ol{ padding-left:1.3em; margin-bottom:1.2em; }
+.toc{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius-m); padding:18px 22px; margin-bottom:8px; }
+.toc h2{ font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:var(--slate); margin-bottom:10px; }
+.toc ol{ padding-left:1.2em; margin:0; font-size:14.5px; }
+.toc a{ color:var(--ink); font-weight:500; }
+.scale-table td, .scale-table th{ font-size:13.5px; }
+
+.callout{
+  background:linear-gradient(135deg,#EAF6FF,#F3F0FF); border-radius:var(--radius-m);
+  padding:18px 20px; border:1px solid #DCEBFB; font-size:14.5px; color:var(--ink);
+}
+.callout.warn{ background:#FFF4E9; border-color:#FCE3C3; }
+
+/* --------------------------------------------------------------------------
+   Emplacements publicitaires (à activer avec votre code AdSense)
+   -------------------------------------------------------------------------- */
+.ad-slot{
+  border:1px dashed var(--line); border-radius:var(--radius-m); background:#FBFCFE;
+  min-height:100px; display:flex; align-items:center; justify-content:center;
+  color:var(--slate-2); font-size:12.5px; text-transform:uppercase; letter-spacing:.06em;
+}
+
+/* --------------------------------------------------------------------------
+   Formulaires (contact)
+   -------------------------------------------------------------------------- */
+.form-field{ margin-bottom:16px; display:flex; flex-direction:column; gap:6px; }
+.form-field label{ font-size:13.5px; font-weight:600; color:var(--ink); }
+.form-field input, .form-field textarea, .form-field select{
+  padding:11px 13px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14.5px; background:var(--white);
+}
+.form-field input:focus-visible, .form-field textarea:focus-visible{ outline:2px solid var(--cyan); border-color:transparent; }
+.form-note{ font-size:12.5px; color:var(--slate); }
+
+/* --------------------------------------------------------------------------
+   Bloc "carte" (Leaflet)
+   -------------------------------------------------------------------------- */
+.map-box{ border-radius:var(--radius-m); overflow:hidden; height:260px; border:1px solid var(--line); }
+.leaflet-container{ font-family:var(--font-body); }
+
+/* --------------------------------------------------------------------------
+   Pied de page
+   -------------------------------------------------------------------------- */
+.site-footer{ background:var(--night); color:#B9C6E6; margin-top:40px; }
+.footer-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:30px; padding:46px 0 24px; }
+@media (max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+.footer-grid h4{ color:var(--white); font-size:13px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px; }
+.footer-grid ul li{ margin-bottom:8px; font-size:14px; }
+.footer-grid a{ color:#B9C6E6; }
+.footer-grid a:hover{ color:var(--white); }
+.footer-brand p{ font-size:13.5px; color:#8FA0C7; max-width:280px; }
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1); padding:16px 0 26px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:12.5px; color:#7F91B8;
+}
+
+/* --------------------------------------------------------------------------
+   États : chargement / erreur / vide
+   -------------------------------------------------------------------------- */
+.skeleton{ background:linear-gradient(90deg,var(--line) 25%, #EEF1F6 37%, var(--line) 63%); background-size:400% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
+@keyframes shimmer{ 0%{background-position:100% 50%;} 100%{background-position:0 50%;} }
+.state-msg{ text-align:center; padding:30px 20px; color:var(--slate); font-size:14.5px; }
+.state-msg.error{ color:var(--coral); }
+
+/* --------------------------------------------------------------------------
+   Animations d'entrée légères
+   -------------------------------------------------------------------------- */
+.fade-in{ animation:fadeIn .5s ease both; }
+@keyframes fadeIn{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
+
+/* --------------------------------------------------------------------------
+   Utilitaires responsives
+   -------------------------------------------------------------------------- */
+@media (max-width:640px){
+  .hero-temp{ font-size:58px; }
+  .hero-icon{ width:64px; height:64px; }
+  .hero-mini-stats{ margin-left:0; gap:16px; }
+  .day-row{ grid-template-columns:80px 26px 1fr 74px; }
+  .day-pop{ display:none; }
+  .section{ padding:28px 0; }
+}
