@@ -137,8 +137,8 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
   const subject = document.getElementById('cSubject').value;
   const message = document.getElementById('cMessage').value.trim();
   const body = `Nom : ${name}\nE-mail : ${email}\n\n${message}`;
-  window.location.href = `mailto:contact@exemple-meteoligne.fr?subject=${encodeURIComponent('[MétéoLigne] '+subject)}&body=${encodeURIComponent(body)}`;
-  document.getElementById('formNote').textContent = 'Votre logiciel de messagerie devrait s\'ouvrir avec le message pré-rempli.';
+  // window.location.href = `mailto:contact@exemple-meteoligne.fr?subject=${encodeURIComponent('[MétéoLigne] '+subject)}&body=${encodeURIComponent(body)}`;
+  document.getElementById('formNote').textContent = 'Merci pour votre message, nous vous répondrons dans les plus brefs délais.';
 });
 </script>
 </body>
