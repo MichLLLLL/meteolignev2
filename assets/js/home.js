@@ -33,7 +33,12 @@
   }
   function hhmm(iso){ const p = parts(iso); return String(p.hh).padStart(2,'0')+':'+String(p.mm).padStart(2,'0'); }
   function frac(iso){ const p = parts(iso); return (p.hh*60+p.mm)/1440; }
-  function dayShort(iso){ return METEO.fmtDay.format(parts(iso).noon).replace('.',''); }
+  function dayShort(iso){ return METEO.fmtDay.format(dateOnlyNoon(iso)).replace('.',''); }
+  // daily.time renvoie des dates seules ("2026-07-06", sans heure) : à distinguer des horodatages "T" (current/hourly/sunrise/sunset).
+  function dateOnlyNoon(dateStr){
+    const [y,mo,da] = dateStr.split('-').map(Number);
+    return new Date(y, mo-1, da, 12);
+  }
 
   /* ---------------- Géocodage ---------------- */
   async function searchPlaces(query){
@@ -306,7 +311,7 @@
       const width = Math.max(6,((daily.temperature_2m_max[i]-daily.temperature_2m_min[i])/span)*100);
       return `
         <div class="day-row">
-          <div class="dname">${i===0?'Aujourd’hui':dayShort(t)}<small>${METEO.fmtDay.format(parts(t).noon).split(' ').slice(1).join(' ')}</small></div>
+          <div class="dname">${i===0?'Aujourd’hui':dayShort(t)}<small>${METEO.fmtDay.format(dateOnlyNoon(t)).split(' ').slice(1).join(' ')}</small></div>
           <svg class="icon"><use href="assets/img/icons.svg#icon-${w.icon}"></use></svg>
           <div class="day-bar-track"><div class="day-bar-fill" style="left:${left}%;width:${width}%;"></div></div>
           <div class="day-minmax"><span class="min">${METEO.round(daily.temperature_2m_min[i])}°</span><span>${METEO.round(daily.temperature_2m_max[i])}°</span></div>
