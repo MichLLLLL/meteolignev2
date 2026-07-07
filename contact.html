@@ -56,15 +56,15 @@
         <form id="contactForm" action="https://formsubmit.co/sven.bazartgelly@gmail.com" method="POST">
           <div class="form-field">
             <label for="cName">Nom</label>
-            <input type="text" id="cName" required autocomplete="name">
+            <input type="text" id="cName" name="Nom" required autocomplete="name">
           </div>
           <div class="form-field">
             <label for="cEmail">Votre adresse e-mail</label>
-            <input type="email" id="cEmail" required autocomplete="email">
+            <input type="email" id="cEmail" name="Email" required autocomplete="email">
           </div>
           <div class="form-field">
             <label for="cSubject">Sujet</label>
-            <select id="cSubject">
+            <select id="cSubject" name="Sujet">
               <option>Question générale</option>
               <option>Signaler un problème d'affichage</option>
               <option>Signaler une donnée incorrecte</option>
@@ -74,7 +74,7 @@
           </div>
           <div class="form-field">
             <label for="cMessage">Message</label>
-            <textarea id="cMessage" rows="5" required></textarea>
+            <textarea id="cMessage" name="Message" rows="5" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="background:var(--indigo-2);color:#fff;">
             <svg><use href="assets/img/icons.svg#icon-mail"></use></svg> Envoyer
